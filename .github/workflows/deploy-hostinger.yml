@@ -1,0 +1,28 @@
+name: Build Vite & Deploy to Hostinger
+
+on:
+  push:
+    branches: [main]      # roda sempre que você fizer push na main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - run: npm ci          # instala dependências
+      - run: npm run build   # gera dist/
+
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4
+        with:
+          server:   ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port:     ${{ secrets.FTP_PORT }}
+          local-dir: dist
+          server-dir: public_html/chrisboari   # ajuste se publicar em outro caminho
