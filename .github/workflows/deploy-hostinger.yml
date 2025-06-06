@@ -25,4 +25,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port:     ${{ secrets.FTP_PORT }}
           local-dir: dist
-          server-dir: public_html/chrisboari   # ajuste se publicar em outro caminho
+          server-dir: public_html/   # ajuste se publicar em outro caminho
